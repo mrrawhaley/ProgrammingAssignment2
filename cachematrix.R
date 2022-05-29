@@ -1,15 +1,29 @@
-## Put comments here that give an overall description of what your
-## functions do
+## stores inverted matrix in cache and returns cached result for future matrix inversion
 
-## Write a short comment describing this function
+## cache matrices A and A^-1
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  matrix_x <<- x
+  inverse_x <<- solve(x)
 }
 
+## checks if matrix B = matrix A and returns A^-1 if B = A or solves B^-1
 
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
+cacheSolve <- function(x = matrix()) {
         ## Return a matrix that is the inverse of 'x'
+  
+  if(exists("matrix_x")) {
+    y <- matrix_x
+    z <- inverse_x
+    if(isTRUE(all.equal(x, y))) {
+      print("getting cached data")
+      z
+    } else {
+      print("no cached data; solving...")
+      solve(x)
+    }
+  } else {
+    print("no cached data; solving...")
+    solve(x)
+  }
 }
